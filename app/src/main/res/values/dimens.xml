@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xsmall">4dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="medium">12dp</dimen>
+    <dimen name="large">16dp</dimen>
+    <dimen name="xlarge">20dp</dimen>
+
+    <dimen name="padding_small">24dp</dimen>
+    <dimen name="padding_medium">30dp</dimen>
+    <dimen name="padding_large">38dp</dimen>
+</resources>
