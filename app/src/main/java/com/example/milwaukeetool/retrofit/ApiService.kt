@@ -1,11 +1,8 @@
 package com.example.milwaukeetool.retrofit
 
 import com.example.milwaukeetool.data.ApiResult
-import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +10,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-
     @GET("forecast")
     fun getWeather(@Query("latitude") latitude: Double,
                    @Query("longitude") longitude: Double,

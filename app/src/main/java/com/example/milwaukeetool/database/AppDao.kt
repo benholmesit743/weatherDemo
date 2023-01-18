@@ -12,20 +12,12 @@ interface AppDao {
     @Query("SELECT * FROM capital_data")
     fun getAll(): Flow<List<CapitalData>>
 
-    @Query("SELECT * FROM capital_data WHERE uid IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): Flow<List<CapitalData>>
+    @Query("SELECT * FROM capital_data WHERE uid IN (:id)")
+    fun getById(id: String): Flow<CapitalData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(capitalData: CapitalData)
 
-
-//    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
-//            "last_name LIKE :last LIMIT 1")
-//    fun findByName(first: String, last: String): CapitalData
-//
-//    @Insert
-//    fun insertAll(vararg users: User)
-//
-//    @Delete
-//    fun delete(user: User)
+    @Query("DELETE FROM capital_data")
+    fun deleteAll()
 }

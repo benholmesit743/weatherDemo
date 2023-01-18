@@ -2,4 +2,5 @@
     <string name="app_name">MilwaukeeTool</string>
     <string name="title_placeholder">Title Placeholder</string>
     <string name="forecast_placeholder">Forecast Placeholder</string>
+    <string name="back_arrow">Back Arrow</string>
 </resources>

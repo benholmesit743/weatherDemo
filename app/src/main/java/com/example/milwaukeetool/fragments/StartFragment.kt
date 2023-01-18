@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.example.milwaukeetool.R
 import com.example.milwaukeetool.data.CapitalData
 import com.example.milwaukeetool.databinding.FragmentStartBinding
-import com.example.milwaukeetool.recyclerView.RecyclerAdapter
+import com.example.milwaukeetool.recyclerView.StartAdapter
 import com.example.milwaukeetool.viewModels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -35,11 +35,7 @@ class StartFragment : Fragment() {
             viewModel.currentItem = it
             Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
         }
-
-        val items = arrayListOf(CapitalData(1000, "South Carolina", "Columbia", 34.00, -81.03, ArrayList(),
-            ArrayList(),
-            ArrayList(),ArrayList()))
-        val adapter = RecyclerAdapter(items, onClick)
+        val adapter = StartAdapter(viewModel.getDataForStartFragment(), onClick)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
     }

@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.milwaukeetool.data.CapitalData
 import com.example.milwaukeetool.databinding.StartFragmentItemBinding
 
-class RecyclerAdapter(private val items: List<CapitalData>,
-                      private val onClick: (data: CapitalData) -> Unit): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class ForecastAdapter(private val items: List<CapitalData>,
+                   private val onClick: (data: CapitalData) -> Unit): RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = StartFragmentItemBinding.inflate(LayoutInflater.from(parent.context))

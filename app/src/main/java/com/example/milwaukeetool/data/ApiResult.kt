@@ -1,8 +1,5 @@
 package com.example.milwaukeetool.data
 
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
-
 data class ApiResult(
     val latitude: Double?,
     val longitude: Double?,
@@ -24,18 +21,16 @@ data class Daily(
     val precipitation_sum: ArrayList<Double>?
 )
 
-//@PrimaryKey
-//val uid: Int,
-//@ColumnInfo(name = "state") val state: String?,
-//@ColumnInfo(name = "capital") val capital: String?,
-//@ColumnInfo(name = "latitude") val latitude: Double?,
-//@ColumnInfo(name = "longitude") val longitude: Double?,
-//@ColumnInfo(name = "hourlyTemps") val hourlyTemps: List<Double> = ArrayList(),
-//@ColumnInfo(name = "hiTemps") val hiTemp: List<Double> = ArrayList(),
-//@ColumnInfo(name = "lowTemps") val lowTemp: List<Double> = ArrayList(),
-//@ColumnInfo(name = "precipitation") val precipitation: List<Double> = ArrayList()
-fun ApiResult.toCapitalData(): CapitalData {
+fun ApiResult.toCapitalData(state: String, capital: String, lat: Double, lon: Double): CapitalData {
     return CapitalData(
-        state =
+        uid = "${state}_${capital}",
+        state = state,
+        capital = capital,
+        latitude = lat,
+        longitude = lon,
+        hourlyTemps = hourly?.apparent_temperature ?: ArrayList(),
+        hiTemp = daily?.temperature_2m_max ?: ArrayList(),
+        lowTemp = daily?.temperature_2m_min ?: ArrayList(),
+        precipitation = daily?.precipitation_sum ?: ArrayList()
     )
 }

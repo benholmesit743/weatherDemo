@@ -27,7 +27,6 @@ class ForecastFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.text.text = viewModel.currentItem?.capital.toString()
         binding.backArrow.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
         }

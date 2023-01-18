@@ -6,10 +6,11 @@ import com.example.milwaukeetool.database.AppDao
 import kotlinx.coroutines.flow.Flow
 
 class AppRepository(private val appDao: AppDao) {
-
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    val allWords: Flow<List<CapitalData>> = appDao.getAll()
+    fun getAll(): Flow<List<CapitalData>> = appDao.getAll()
+
+    fun getById(id: String): Flow<CapitalData> = appDao.getById(id)
 
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
@@ -18,5 +19,9 @@ class AppRepository(private val appDao: AppDao) {
     @WorkerThread
     suspend fun insert(item: CapitalData) {
         appDao.insert(item)
+    }
+
+    fun deleteAll() {
+        appDao.deleteAll()
     }
 }
