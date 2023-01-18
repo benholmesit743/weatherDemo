@@ -37,7 +37,7 @@ class StartFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
         }
 
-        val items = arrayListOf(CapitalData("South Carolina", "Columbia", 34.00, -81.03, null, null, null))
+        val items = arrayListOf(CapitalData(1000, "South Carolina", "Columbia", 34.00, -81.03, null, null, null))
         val adapter = RecyclerAdapter(items, onClick)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)

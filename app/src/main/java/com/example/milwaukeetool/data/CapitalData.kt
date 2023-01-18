@@ -1,17 +1,17 @@
 package com.example.milwaukeetool.data
 
-import android.os.Parcelable
-import androidx.annotation.Keep
-import kotlinx.android.parcel.Parcelize
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Keep
-@Parcelize
+@Entity(tableName = "capital_data")
 data class CapitalData(
-    val state: String?,
-    val capital: String?,
-    val latitude: Double,
-    val longitude: Double,
-    val hiTemp: Int?,
-    val lowTemp: Int?,
-    val precipitation: Double?
-) : Parcelable
+    @PrimaryKey val uid: Int,
+    @ColumnInfo(name = "state") val state: String?,
+    @ColumnInfo(name = "capital") val capital: String?,
+    @ColumnInfo(name = "latitude") val latitude: Double,
+    @ColumnInfo(name = "longitude") val longitude: Double,
+    @ColumnInfo(name = "hiTemp") val hiTemp: Int?,
+    @ColumnInfo(name = "lowTemp") val lowTemp: Int?,
+    @ColumnInfo(name = "precipitation") val precipitation: Double?
+)

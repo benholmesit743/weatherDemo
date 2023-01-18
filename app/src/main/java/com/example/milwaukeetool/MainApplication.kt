@@ -1,6 +1,9 @@
 package com.example.milwaukeetool
 
 import android.app.Application
+import androidx.room.Room
+import com.example.milwaukeetool.database.AppDatabase
+import com.example.milwaukeetool.repository.AppRepository
 import com.example.milwaukeetool.retrofit.ApiService
 import com.example.milwaukeetool.viewModels.MainViewModel
 import okhttp3.OkHttpClient
@@ -15,7 +18,6 @@ class MainApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         startKoin {
             androidLogger()
             androidContext(this@MainApplication)
@@ -30,9 +32,15 @@ class MainApplication: Application() {
             }
             OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
         }
-
         single { ApiService.create(get())}
-
-        viewModel { MainViewModel(get()) }
+        single {
+            val database = Room.databaseBuilder(
+                            applicationContext,
+                            AppDatabase::class.java, "App-Database"
+                            ).build()
+            database.dao()
+        }
+        single { AppRepository(get()) }
+        viewModel { MainViewModel(get(), get()) }
     }
 }
