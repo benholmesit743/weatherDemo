@@ -13,7 +13,6 @@ import com.example.milwaukeetool.viewModels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ForecastFragment : Fragment() {
-
     private lateinit var binding: FragmentForecastBinding
     private val viewModel by activityViewModel<MainViewModel>()
 

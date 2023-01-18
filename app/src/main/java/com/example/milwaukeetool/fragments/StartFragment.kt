@@ -15,7 +15,6 @@ import com.example.milwaukeetool.viewModels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class StartFragment : Fragment() {
-
     private val viewModel by activityViewModel<MainViewModel>()
     private lateinit var binding: FragmentStartBinding
 
@@ -24,8 +23,8 @@ class StartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel.getFiveDayForecast()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
-        viewModel.getData()
         return binding.root
     }
 
@@ -37,7 +36,9 @@ class StartFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
         }
 
-        val items = arrayListOf(CapitalData(1000, "South Carolina", "Columbia", 34.00, -81.03, null, null, null))
+        val items = arrayListOf(CapitalData(1000, "South Carolina", "Columbia", 34.00, -81.03, ArrayList(),
+            ArrayList(),
+            ArrayList(),ArrayList()))
         val adapter = RecyclerAdapter(items, onClick)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
