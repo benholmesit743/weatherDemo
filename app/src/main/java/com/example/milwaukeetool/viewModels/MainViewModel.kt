@@ -58,12 +58,12 @@ class MainViewModel(private val apiService: ApiService, private val repository: 
         for (item in CapitalCoordinates.values()) {
             result.add(
                 CapitalData(
-                    uid = "${item.getState()}_${item.capital}",
+                    uid = String.format("%1s_%1s", item.getState(), item.capital),
                     state = item.getState(),
                     capital = item.capital,
                     latitude = item.lat,
                     longitude = item.lon,
-                    timeStamp = "${System.currentTimeMillis()}"
+                    timeStamp = String.format("%1s", System.currentTimeMillis())
                 )
             )
         }

@@ -57,7 +57,7 @@ fun CapitalCoordinates.getState(): String {
     var result = name
     if (result.contains("_")) {
         val array = result.split("_")
-        result = "${array[0]} ${array[1]}"
+        result = String.format("%1s %1s", array[0], array[1])
     }
     return result
 }

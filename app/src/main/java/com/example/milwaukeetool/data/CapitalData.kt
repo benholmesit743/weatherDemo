@@ -34,7 +34,7 @@ fun CapitalData.toForecastAdapterData(): ArrayList<ForecastAdapterData> {
     val result = ArrayList<ForecastAdapterData>()
     var currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
     for (index in hiTemp.indices) {
-        result.add(ForecastAdapterData.Title("Day ${index}"))
+        result.add(ForecastAdapterData.Title(String.format("Day %1d", index)))
         result.add(ForecastAdapterData.DailyForecast(
             currentTemp = hourlyTemps[currentHour],
             hiTemp = hiTemp[index],

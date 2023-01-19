@@ -35,7 +35,7 @@ class ForecastFragment : Fragment() {
         }
 
         viewModel.forecastData.observe(viewLifecycleOwner) { capitalData ->
-            if (capitalData != null) {
+            capitalData?.let {
                 val adapter = ForecastAdapter(capitalData.toForecastAdapterData())
                 binding.recyclerView.adapter = adapter
                 binding.recyclerView.setHasFixedSize(true)
