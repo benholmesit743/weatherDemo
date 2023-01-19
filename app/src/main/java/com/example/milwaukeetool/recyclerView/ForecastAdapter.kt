@@ -13,7 +13,7 @@ class ForecastAdapter(private val items: List<ForecastAdapterData>): RecyclerVie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
-            0 -> {
+            ForecastViewType.TITLE.ordinal -> {
                 val binding = ForecastTitleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 TitleViewHolder(binding)
             }
@@ -34,9 +34,14 @@ class ForecastAdapter(private val items: List<ForecastAdapterData>): RecyclerVie
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is ForecastAdapterData.Title -> 0
-            is ForecastAdapterData.DailyForecast -> 1
+            is ForecastAdapterData.Title -> ForecastViewType.TITLE.ordinal
+            is ForecastAdapterData.DailyForecast -> ForecastViewType.DAILY_FORECAST.ordinal
         }
+    }
+
+    enum class ForecastViewType {
+        TITLE,
+        DAILY_FORECAST
     }
 
     abstract class ViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
