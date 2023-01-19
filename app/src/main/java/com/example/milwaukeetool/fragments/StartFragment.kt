@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.example.milwaukeetool.R
 import com.example.milwaukeetool.data.CapitalData
 import com.example.milwaukeetool.databinding.FragmentStartBinding
@@ -34,6 +35,9 @@ class StartFragment : Fragment() {
             Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
             viewModel.getFiveDayForecastFromApi()
         }
+        Glide.with(requireContext())
+            .load("https://clipartix.com/wp-content/uploads/2016/05/Weather-clip-art-for-teachers-free-clipart-images-2.jpg")
+            .into(binding.image);
         val adapter = StartAdapter(viewModel.getDataForStartFragment(), onClick)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
