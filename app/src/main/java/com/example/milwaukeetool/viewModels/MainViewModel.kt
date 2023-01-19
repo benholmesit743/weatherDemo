@@ -1,6 +1,8 @@
 package com.example.milwaukeetool.viewModels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.milwaukeetool.data.CapitalCoordinates
 import com.example.milwaukeetool.data.CapitalData
@@ -19,8 +21,9 @@ import kotlin.collections.ArrayList
 class MainViewModel(private val apiService: ApiService, private val repository: AppRepository): ViewModel() {
     private var disposable = CompositeDisposable()
     var currentItem: CapitalData? = null
+    lateinit var forecastData: LiveData<CapitalData>
 
-    fun getFiveDayForecast() {
+    fun getFiveDayForecastFromApi() {
         val dates = getStartAndEndDates()
         currentItem?.let { capital ->
             disposable.add(
@@ -35,6 +38,12 @@ class MainViewModel(private val apiService: ApiService, private val repository: 
                     }, {
                         it.printStackTrace()
                     }))
+        }
+    }
+
+    fun getFiveDayForecastFromDatabase() {
+        currentItem?.let {
+            forecastData = repository.getById(it.uid).asLiveData()
         }
     }
 
@@ -53,7 +62,8 @@ class MainViewModel(private val apiService: ApiService, private val repository: 
                     state = item.getState(),
                     capital = item.capital,
                     latitude = item.lat,
-                    longitude = item.lon
+                    longitude = item.lon,
+                    timeStamp = "${System.currentTimeMillis()}"
                 )
             )
         }

@@ -31,6 +31,7 @@ fun ApiResult.toCapitalData(state: String, capital: String, lat: Double, lon: Do
         hourlyTemps = hourly?.apparent_temperature ?: ArrayList(),
         hiTemp = daily?.temperature_2m_max ?: ArrayList(),
         lowTemp = daily?.temperature_2m_min ?: ArrayList(),
-        precipitation = daily?.precipitation_sum ?: ArrayList()
+        precipitation = daily?.precipitation_sum ?: ArrayList(),
+        timeStamp = "${System.currentTimeMillis()}"
     )
 }

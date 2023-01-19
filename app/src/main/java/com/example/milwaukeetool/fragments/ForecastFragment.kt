@@ -8,7 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.milwaukeetool.R
+import com.example.milwaukeetool.data.toForecastAdapterData
 import com.example.milwaukeetool.databinding.FragmentForecastBinding
+import com.example.milwaukeetool.recyclerView.ForecastAdapter
 import com.example.milwaukeetool.viewModels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -21,6 +23,7 @@ class ForecastFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel.getFiveDayForecastFromDatabase()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_forecast, container, false)
         return binding.root
     }
@@ -29,6 +32,14 @@ class ForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.backArrow.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
+        }
+
+        viewModel.forecastData.observe(viewLifecycleOwner) { capitalData ->
+            if (capitalData != null) {
+                val adapter = ForecastAdapter(capitalData.toForecastAdapterData())
+                binding.recyclerView.adapter = adapter
+                binding.recyclerView.setHasFixedSize(true)
+            }
         }
     }
 }

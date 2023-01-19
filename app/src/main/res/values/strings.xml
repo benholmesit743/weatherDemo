@@ -3,4 +3,7 @@
     <string name="title_placeholder">Title Placeholder</string>
     <string name="forecast_placeholder">Forecast Placeholder</string>
     <string name="back_arrow">Back Arrow</string>
+    <string name="temp_format">%1$s\u2109</string>
+    <string name="precipitation_format">Precipitation: %1$s per inch</string>
+    <string name="timestamp_format">Timestamp: %1$s ms</string>
 </resources>

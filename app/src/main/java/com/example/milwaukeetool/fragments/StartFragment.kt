@@ -23,17 +23,16 @@ class StartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getFiveDayForecast()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val onClick: (data: CapitalData) -> Unit = {
             viewModel.currentItem = it
             Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
+            viewModel.getFiveDayForecastFromApi()
         }
         val adapter = StartAdapter(viewModel.getDataForStartFragment(), onClick)
         binding.recyclerView.adapter = adapter
