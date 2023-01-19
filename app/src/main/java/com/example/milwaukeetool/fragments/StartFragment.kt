@@ -36,7 +36,7 @@ class StartFragment : Fragment() {
             viewModel.getFiveDayForecastFromApi()
         }
         Glide.with(requireContext())
-            .load("https://clipartix.com/wp-content/uploads/2016/05/Weather-clip-art-for-teachers-free-clipart-images-2.jpg")
+            .load(requireContext().resources.getString(R.string.app_bar_image_url))
             .into(binding.image);
         val adapter = StartAdapter(viewModel.getDataForStartFragment(), onClick)
         binding.recyclerView.adapter = adapter
