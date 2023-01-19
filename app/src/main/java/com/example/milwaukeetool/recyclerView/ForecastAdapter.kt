@@ -14,11 +14,11 @@ class ForecastAdapter(private val items: List<ForecastAdapterData>): RecyclerVie
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
             0 -> {
-                val binding = ForecastTitleItemBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ForecastTitleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 TitleViewHolder(binding)
             }
             else -> {
-                val binding = ForecastDayItemBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ForecastDayItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 ForecastDayViewHolder(binding)
             }
         }

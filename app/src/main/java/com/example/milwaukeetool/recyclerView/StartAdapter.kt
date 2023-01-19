@@ -10,7 +10,7 @@ class StartAdapter(private val items: List<CapitalData>,
                    private val onClick: (data: CapitalData) -> Unit): RecyclerView.Adapter<StartAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = StartFragmentItemBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = StartFragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
