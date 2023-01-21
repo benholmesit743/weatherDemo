@@ -12,7 +12,7 @@ class StartAdapter(private val items: ArrayList<CapitalData>,
                    private val onClick: (data: CapitalData) -> Unit): RecyclerView.Adapter<StartAdapter.ViewHolder>() {
 
     fun updateList(list: List<CapitalData>) {
-        val diffCallback = StartAdapterDiffCallback(items, list)
+        val diffCallback = GenericDiffCallback(items, list)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         items.clear()
         items.addAll(list)

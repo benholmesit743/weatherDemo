@@ -1,10 +1,8 @@
 package com.example.milwaukeetool.recyclerView
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.milwaukeetool.data.CapitalData
 
-
-class StartAdapterDiffCallback(private val oldList: List<CapitalData>, private val newList: List<CapitalData>) :
+class GenericDiffCallback<T>(private val oldList: List<T>, private val newList: List<T>) :
     DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
@@ -16,12 +14,12 @@ class StartAdapterDiffCallback(private val oldList: List<CapitalData>, private v
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].uid.equals(newList[newItemPosition].uid)
+        return oldList[oldItemPosition]?.equals(newList[newItemPosition]) ?: false
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
-        return oldItem.equals(newItem)
+        return oldItem?.equals(newItem) ?: false
     }
 }

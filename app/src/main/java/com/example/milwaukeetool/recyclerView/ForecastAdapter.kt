@@ -3,14 +3,22 @@ package com.example.milwaukeetool.recyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.milwaukeetool.R
 import com.example.milwaukeetool.data.ForecastAdapterData
 import com.example.milwaukeetool.databinding.ForecastDayItemBinding
 import com.example.milwaukeetool.databinding.ForecastTitleItemBinding
 
-class ForecastAdapter(private val items: List<ForecastAdapterData>): RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
+class ForecastAdapter(private val items: ArrayList<ForecastAdapterData>): RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
+    fun updateList(list: List<ForecastAdapterData>) {
+        val diffCallback = GenericDiffCallback(items, list)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        items.clear()
+        items.addAll(list)
+        diffResult.dispatchUpdatesTo(this)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
             ForecastViewType.TITLE.ordinal -> {
