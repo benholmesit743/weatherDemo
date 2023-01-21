@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.example.milwaukeetool.data.CapitalData
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
 interface AppDao {
     @Query("SELECT * FROM capital_data")
@@ -17,6 +18,9 @@ interface AppDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(capitalData: CapitalData)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addAll(list: List<CapitalData>)
 
     @Query("DELETE FROM capital_data")
     fun deleteAll()

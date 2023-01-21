@@ -10,10 +10,14 @@ class AppRepository(private val appDao: AppDao) {
 
     fun getById(id: String): Flow<CapitalData> = appDao.getById(id)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(item: CapitalData) {
         appDao.insert(item)
+    }
+
+    @WorkerThread
+    suspend fun addAll(list: List<CapitalData>) {
+        appDao.addAll(list)
     }
 
     fun deleteAll() {

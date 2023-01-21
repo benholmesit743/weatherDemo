@@ -37,9 +37,15 @@ class StartFragment : Fragment() {
         }
         Glide.with(requireContext())
             .load(requireContext().resources.getString(R.string.app_bar_image_url))
-            .into(binding.image);
-        val adapter = StartAdapter(viewModel.getDataForStartFragment(), onClick)
+            .into(binding.image)
+
+        val adapter = StartAdapter(ArrayList(), onClick)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+        viewModel.startData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                adapter.updateList(it)
+            }
+        }
     }
 }
