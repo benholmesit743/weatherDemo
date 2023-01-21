@@ -34,10 +34,6 @@ class ForecastFragment : Fragment() {
             NavHostFragment.findNavController(this).navigateUp()
         }
 
-        val adapter = ForecastAdapter(ArrayList())
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.setHasFixedSize(true)
-
         viewModel.forecastData.observe(viewLifecycleOwner) { capitalData ->
             capitalData?.let {
                 if (binding.recyclerView.adapter == null) {
