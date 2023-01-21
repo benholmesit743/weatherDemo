@@ -39,12 +39,14 @@ class StartFragment : Fragment() {
             .load(requireContext().resources.getString(R.string.app_bar_image_url))
             .into(binding.image)
 
-        val adapter = StartAdapter(ArrayList(), onClick)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.setHasFixedSize(true)
         viewModel.startData.observe(viewLifecycleOwner) {
             if (it != null) {
-                adapter.updateList(it)
+                if (binding.recyclerView.adapter == null) {
+                    binding.recyclerView.adapter = StartAdapter(ArrayList(it), onClick)
+                } else {
+                    (binding.recyclerView.adapter as StartAdapter).updateList(it)
+                }
+                if (!binding.recyclerView.hasFixedSize()) binding.recyclerView.setHasFixedSize(true)
             }
         }
     }

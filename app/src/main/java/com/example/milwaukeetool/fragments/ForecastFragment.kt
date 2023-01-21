@@ -34,11 +34,18 @@ class ForecastFragment : Fragment() {
             NavHostFragment.findNavController(this).navigateUp()
         }
 
+        val adapter = ForecastAdapter(ArrayList())
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.setHasFixedSize(true)
+
         viewModel.forecastData.observe(viewLifecycleOwner) { capitalData ->
             capitalData?.let {
-                val adapter = ForecastAdapter(capitalData.toForecastAdapterData())
-                binding.recyclerView.adapter = adapter
-                binding.recyclerView.setHasFixedSize(true)
+                if (binding.recyclerView.adapter == null) {
+                    binding.recyclerView.adapter = ForecastAdapter(it.toForecastAdapterData())
+                } else {
+                    (binding.recyclerView.adapter as ForecastAdapter).updateList(it.toForecastAdapterData())
+                }
+                if (!binding.recyclerView.hasFixedSize()) binding.recyclerView.setHasFixedSize(true)
             }
         }
     }

@@ -67,12 +67,9 @@ class ForecastAdapter(private val items: ArrayList<ForecastAdapterData>): Recycl
         override fun bind(item: ForecastAdapterData) {
             val data = item as ForecastAdapterData.DailyForecast
             val resources = binding.root.context.resources
-            val currentTempString = String.format("%1d", data.currentTemp.toInt())
-            binding.currentTemp.text = resources.getString(R.string.temp_format, currentTempString)
-            val hiTempString = String.format("%1d", data.hiTemp.toInt())
-            binding.hiTemp.text = resources.getString(R.string.temp_format, hiTempString)
-            val lowTempString = String.format("%1d", data.lowTemp.toInt())
-            binding.lowTemp.text = resources.getString(R.string.temp_format, lowTempString)
+            binding.currentTemp.text = resources.getString(R.string.temp_format, data.currentTemp.toInt().toString())
+            binding.hiTemp.text = resources.getString(R.string.temp_format, data.hiTemp.toInt().toString())
+            binding.lowTemp.text = resources.getString(R.string.temp_format, data.lowTemp.toInt().toString())
             binding.precipitation.text = resources.getString(R.string.precipitation_format, data.precipitation.toString())
             binding.timestamp.text = resources.getString(R.string.timestamp_format, data.timeStamp)
         }

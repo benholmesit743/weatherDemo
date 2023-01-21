@@ -23,7 +23,7 @@ data class Daily(
 
 fun ApiResult.toCapitalData(state: String, capital: String, lat: Double, lon: Double): CapitalData {
     return CapitalData(
-        uid = String.format("%1s_%1s", state, capital),
+        uid = "${state}_${capital}",
         state = state,
         capital = capital,
         latitude = lat,
@@ -32,6 +32,6 @@ fun ApiResult.toCapitalData(state: String, capital: String, lat: Double, lon: Do
         hiTemp = daily?.temperature_2m_max ?: ArrayList(),
         lowTemp = daily?.temperature_2m_min ?: ArrayList(),
         precipitation = daily?.precipitation_sum ?: ArrayList(),
-        timeStamp = String.format("%1s", System.currentTimeMillis())
+        timeStamp = "${System.currentTimeMillis()}"
     )
 }

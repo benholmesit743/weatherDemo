@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AppDao {
-    @Query("SELECT * FROM capital_data")
+    @Query("SELECT * FROM capital_data ORDER BY state ASC")
     fun getAll(): Flow<List<CapitalData>>
 
     @Query("SELECT * FROM capital_data WHERE uid IN (:id)")
