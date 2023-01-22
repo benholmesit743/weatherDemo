@@ -18,8 +18,6 @@ class GenericDiffCallback<T>(private val oldList: List<T>, private val newList: 
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = oldList[oldItemPosition]
-        val newItem = newList[newItemPosition]
-        return oldItem?.equals(newItem) ?: false
+        return oldList[oldItemPosition]?.equals(newList[newItemPosition]) ?: false
     }
 }

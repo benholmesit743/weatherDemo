@@ -34,7 +34,7 @@
     <style name="ForecastTitleItemStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="SubtitleItemStyle">

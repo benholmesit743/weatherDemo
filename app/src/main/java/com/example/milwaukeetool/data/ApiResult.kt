@@ -1,5 +1,8 @@
 package com.example.milwaukeetool.data
 
+import com.example.milwaukeetool.utilities.getFormattedString
+import java.util.Date
+
 data class ApiResult(
     val latitude: Double?,
     val longitude: Double?,
@@ -32,6 +35,6 @@ fun ApiResult.toCapitalData(state: String, capital: String, lat: Double, lon: Do
         hiTemp = daily?.temperature_2m_max ?: ArrayList(),
         lowTemp = daily?.temperature_2m_min ?: ArrayList(),
         precipitation = daily?.precipitation_sum ?: ArrayList(),
-        timeStamp = "${System.currentTimeMillis()}"
+        timeStamp = Date(System.currentTimeMillis()).getFormattedString()
     )
 }

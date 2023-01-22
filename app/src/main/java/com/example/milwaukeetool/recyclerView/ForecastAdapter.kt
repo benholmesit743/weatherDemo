@@ -59,7 +59,9 @@ class ForecastAdapter(private val items: ArrayList<ForecastAdapterData>): Recycl
 
     class TitleViewHolder(private val binding: ForecastTitleItemBinding) : ViewHolder(binding) {
         override fun bind(item: ForecastAdapterData) {
-            binding.title.text = (item as ForecastAdapterData.Title).title
+            val resources = binding.root.context.resources
+            val day = (item as ForecastAdapterData.Title).day
+            binding.title.text = resources.getString(R.string.title_format_string, day.toString())
         }
     }
 

@@ -27,14 +27,14 @@ sealed class ForecastAdapterData{
         val precipitation: Double,
         val timeStamp: String
     ) : ForecastAdapterData()
-    data class Title(val title: String) : ForecastAdapterData()
+    data class Title(val day: Int) : ForecastAdapterData()
 }
 
 fun CapitalData.toForecastAdapterData(): ArrayList<ForecastAdapterData> {
     val result = ArrayList<ForecastAdapterData>()
     var currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
     for (index in hiTemp.indices) {
-        result.add(ForecastAdapterData.Title("Day ${index}"))
+        result.add(ForecastAdapterData.Title(index + 1))
         result.add(ForecastAdapterData.DailyForecast(
             currentTemp = if (currentHour < hourlyTemps.size) hourlyTemps[currentHour] else 0.00,
             hiTemp = hiTemp[index],
