@@ -23,7 +23,7 @@ class MainViewModel(private val apiService: ApiService, private val repository: 
     fun getCurrentTemperatureFromApi() {
         currentItem?.let { zip ->
             disposable.add(
-                apiService.getWeather(location = "$zip.zipCode%20US", units = zip.unit.toUnits())
+                apiService.getWeather(location = zip.zipCode, units = zip.unit.toUnits())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
