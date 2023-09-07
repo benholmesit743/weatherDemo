@@ -9,7 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-//https://api.tomorrow.io/v4/weather/realtime?location=29223%20US&units=imperial&apikey=
 interface ApiService {
     @GET("realtime")
     fun getWeather(@Query("location") location: String,

@@ -115,7 +115,16 @@ class StartFragment : Fragment() {
                                 val geocoder = Geocoder(requireContext(), Locale.getDefault())
                                 val postalCode = geocoder.getFromLocation(it.latitude, it.longitude, 1)
                                     ?.first()?.postalCode
-
+                                postalCode?.let { code ->
+                                    viewModel.addToRepo(
+                                        ZipCode(
+                                            zipCode = code,
+                                            temperature = null,
+                                            timeStamp = null,
+                                            unit = 0
+                                        )
+                                    )
+                                }
                             }
                         }
                 }
