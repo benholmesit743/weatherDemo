@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.umo.data.CapitalData
-import com.example.umo.data.toCapitalData
+import com.example.umo.data.ZipCode
 import com.example.umo.repository.AppRepository
 import com.example.umo.retrofit.ApiService
 import com.example.umo.utilities.Utility
@@ -16,37 +15,37 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val apiService: ApiService, private val repository: AppRepository): ViewModel() {
     private var disposable = CompositeDisposable()
-    var currentItem: CapitalData? = null
-    lateinit var forecastData: LiveData<CapitalData>
-    val startData: LiveData<List<CapitalData>> = repository.getAll().asLiveData()
+    var currentItem: ZipCode? = null
+    lateinit var forecastData: LiveData<ZipCode>
+    val startData: LiveData<List<ZipCode>> = repository.getAll().asLiveData()
 
-    fun getFiveDayForecastFromApi() {
-        val dates = Utility.getStartAndEndDates()
-        currentItem?.let { capital ->
-            disposable.add(
-                apiService.getWeather(latitude = capital.latitude, longitude = capital.longitude,
-                    startDate = dates[0], endDate = dates[1])
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        addToRepo(
-                            it.toCapitalData(capital.state, capital.capital, capital.latitude, capital.longitude)
-                        )
-                    }, {
-                        it.printStackTrace()
-                    }))
-        }
-    }
+//    fun getCurrentTemperatureFromApi() {
+//        val dates = Utility.getStartAndEndDates()
+//        currentItem?.let { capital ->
+//            disposable.add(
+//                apiService.getWeather(latitude = capital.latitude, longitude = capital.longitude,
+//                    startDate = dates[0], endDate = dates[1])
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe({
+//                        addToRepo(
+//                            it.toCapitalData(capital.state, capital.capital, capital.latitude, capital.longitude)
+//                        )
+//                    }, {
+//                        it.printStackTrace()
+//                    }))
+//        }
+//    }
 
-    fun getFiveDayForecastFromDatabase() {
+    fun getCurrentTemperatureFromDatabase() {
         currentItem?.let {
-            forecastData = repository.getById(it.uid).asLiveData()
+            forecastData = repository.getById(it.zipCode).asLiveData()
         }
     }
 
-    private fun addToRepo(capital: CapitalData) {
+    fun addToRepo(zipCode: ZipCode) {
         viewModelScope.launch {
-            repository.insert(capital)
+            repository.insert(zipCode)
         }
     }
 

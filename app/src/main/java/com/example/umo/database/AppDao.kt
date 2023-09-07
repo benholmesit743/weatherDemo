@@ -4,18 +4,21 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.umo.data.CapitalData
+import com.example.umo.data.ZipCode
 import kotlinx.coroutines.flow.Flow
 
 
 @Dao
 interface AppDao {
-    @Query("SELECT * FROM capital_data ORDER BY state ASC")
-    fun getAll(): Flow<List<String>>
+    @Query("SELECT * FROM zip_code")
+    fun getAll(): Flow<List<ZipCode>>
+
+    @Query("SELECT * FROM zip_code WHERE zipCode IN (:zipCode)")
+    fun getById(zipCode: String): Flow<ZipCode>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(postalCode: String)
+    suspend fun insert(zipCode: ZipCode)
 
-    @Query("DELETE FROM capital_data")
+    @Query("DELETE FROM zip_code")
     fun deleteAll()
 }

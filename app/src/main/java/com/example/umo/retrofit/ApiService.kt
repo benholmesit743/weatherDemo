@@ -9,24 +9,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+//https://api.tomorrow.io/v4/weather/realtime?location=29223%20US&units=imperial&apikey=
 interface ApiService {
-    @GET("forecast")
-    fun getWeather(@Query("latitude") latitude: Double,
-                   @Query("longitude") longitude: Double,
-                   @Query("hourly") hourly: String = "apparent_temperature",
-                   @Query("daily", encoded = true) daily: String = "temperature_2m_max,temperature_2m_min,precipitation_sum",
-                   @Query("temperature_unit") tempUnit: String = "fahrenheit",
-                   @Query("windspeed_unit") windSpeedUnit: String = "mph",
-                   @Query("precipitation_unit") precipitationUnit: String = "inch",
-                   @Query("timezone") timeZone: String = "America/New_York",
-                   @Query("start_date") startDate: String,
-                   @Query("end_date") endDate: String) : Single<ApiResult>
+    @GET("realtime")
+    fun getWeather(@Query("location") location: String,
+                   @Query("units") units: String,
+                   @Query("apiKey") apiKey: String = "fFl8sB0s0HxsI35RbIky6J8G1laFSyqH"
+    ): Single<ApiResult>
 
     companion object {
         fun create(client: OkHttpClient) : ApiService {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.open-meteo.com/v1/")
+                .baseUrl("https://api.tomorrow.io/v4/weather/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build()

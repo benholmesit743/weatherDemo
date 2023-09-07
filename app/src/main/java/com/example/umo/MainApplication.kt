@@ -7,7 +7,6 @@ import com.example.umo.database.AppDatabase
 import com.example.umo.repository.AppRepository
 import com.example.umo.retrofit.ApiService
 import com.example.umo.viewModels.MainViewModel
-import com.example.umo.worker.DownloadManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -24,24 +23,12 @@ class MainApplication: Application(), Configuration.Provider {
             androidContext(this@MainApplication)
             modules(appModule)
         }
-        downloadData()
     }
 
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder()
             .setMinimumLoggingLevel(android.util.Log.INFO)
             .build()
-    }
-    private fun downloadData() {
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
-        val request = OneTimeWorkRequest.Builder(DownloadManager::class.java)
-            .setConstraints(constraints)
-            .build()
-        val workManager = WorkManager.getInstance(this)
-        workManager.enqueue(request)
     }
 
     private val appModule = module {
