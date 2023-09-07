@@ -11,11 +11,11 @@ ext {
 }
 
 android {
-    namespace 'com.example.milwaukeetool'
+    namespace 'com.example.umo'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.milwaukeetool"
+        applicationId "com.example.umo"
         minSdk 21
         targetSdk 33
         versionCode 1
