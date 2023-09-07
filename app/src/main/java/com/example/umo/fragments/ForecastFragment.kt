@@ -33,7 +33,10 @@ class ForecastFragment : Fragment() {
         binding.backArrow.setOnClickListener {
             NavHostFragment.findNavController(this).navigateUp()
         }
-
+        binding.refresh.setOnRefreshListener {
+            viewModel.getCurrentTemperatureFromApi()
+            binding.refresh.isRefreshing = false
+        }
         viewModel.forecastData.observe(viewLifecycleOwner) { zipCode ->
             zipCode?.let {
                 @StringRes
