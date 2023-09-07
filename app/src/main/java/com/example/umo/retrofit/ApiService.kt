@@ -14,7 +14,7 @@ interface ApiService {
     @GET("realtime")
     fun getWeather(@Query("location") location: String,
                    @Query("units") units: String,
-                   @Query("apiKey") apiKey: String = "fFl8sB0s0HxsI35RbIky6J8G1laFSyqH"
+                   @Query("apikey") apikey: String = "fFl8sB0s0HxsI35RbIky6J8G1laFSyqH"
     ): Single<ApiResult>
 
     companion object {

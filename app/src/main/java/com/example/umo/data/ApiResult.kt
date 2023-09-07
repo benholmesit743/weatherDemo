@@ -8,3 +8,12 @@ data class ApiResult(
 data class DataValues(
     val temperature: Double?
 )
+
+fun ApiResult.toZipCode (currentZipCode: String, currentUnit: Int) : ZipCode{
+    return ZipCode(
+        timeStamp = time,
+        temperature = values?.temperature,
+        zipCode = currentZipCode,
+        unit = currentUnit
+    )
+}

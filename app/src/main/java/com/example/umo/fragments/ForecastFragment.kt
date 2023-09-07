@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.umo.R
 import com.example.umo.databinding.FragmentForecastBinding
-import com.example.umo.recyclerView.ForecastAdapter
 import com.example.umo.viewModels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -33,15 +34,14 @@ class ForecastFragment : Fragment() {
             NavHostFragment.findNavController(this).navigateUp()
         }
 
-//        viewModel.forecastData.observe(viewLifecycleOwner) { capitalData ->
-//            capitalData?.let {
-//                if (binding.recyclerView.adapter == null) {
-//                    binding.recyclerView.adapter = ForecastAdapter(it.toForecastAdapterData())
-//                } else {
-//                    (binding.recyclerView.adapter as ForecastAdapter).updateList(it.toForecastAdapterData())
-//                }
-//                if (!binding.recyclerView.hasFixedSize()) binding.recyclerView.setHasFixedSize(true)
-//            }
-//        }
+        viewModel.forecastData.observe(viewLifecycleOwner) { zipCode ->
+            zipCode?.let {
+                @StringRes
+                val degreeFormat: Int = if (it.unit == 1) R.string.temp_format_celsius else R.string.temp_format_fahrenheit
+                binding.temperature.text = getString(degreeFormat, it.temperature)
+                binding.timeStamp.text = it.timeStamp
+                binding.image.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.good_weather))
+            }
+        }
     }
 }

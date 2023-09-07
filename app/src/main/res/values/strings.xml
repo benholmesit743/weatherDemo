@@ -4,12 +4,14 @@
     <string name="title_format_string">Day %1$s</string>
     <string name="forecast_placeholder">Forecast Placeholder</string>
     <string name="back_arrow">Back Arrow</string>
-    <string name="temp_format">%1$s\u2109</string>
+    <string name="temp_format_fahrenheit">%1$s\u2109</string>
+    <string name="temp_format_celsius">%1$s\u2103</string>
     <string name="precipitation_format">Precipitation: %1$s per inch</string>
     <string name="timestamp_format">Timestamp: %1$s</string>
     <string name="app_bar">App Bar</string>
+    <string name="image_content_description">Image describes weather condition</string>
     <string name="submit">Submit</string>
     <string name="zip_dialog_title">Input Zip Code</string>
     <string name="app_bar_image_url">"https://clipartix.com/wp-content/uploads/2016/05/Weather-clip-art-for-teachers-free-clipart-images-2.jpg"</string>
-    <string name="_5_day_forecast">5 Day Forecast</string>
+    <string name="current_temp_title">Current Temperature</string>
 </resources>

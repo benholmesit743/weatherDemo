@@ -24,6 +24,13 @@ sealed class ForecastAdapterData{
     data class Title(val day: Int) : ForecastAdapterData()
 }
 
+fun Int.toUnits() : String {
+    return when(this) {
+        0 -> "imperial"
+        else -> "metric"
+    }
+}
+
 //fun CapitalData.toForecastAdapterData(): ArrayList<ForecastAdapterData> {
 //    val result = ArrayList<ForecastAdapterData>()
 //    var currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)

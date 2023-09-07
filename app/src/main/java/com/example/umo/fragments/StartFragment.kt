@@ -12,10 +12,12 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.umo.R
 import com.example.umo.data.ZipCode
 import com.example.umo.databinding.FragmentStartBinding
+import com.example.umo.recyclerView.StartAdapter
 import com.example.umo.viewModels.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -50,9 +52,9 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requestLocationPermission()
         val onClick: (data: ZipCode) -> Unit = {
-//            viewModel.currentItem = it
-//            Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
-//            viewModel.getCurrentTemperatureFromApi()
+            viewModel.currentItem = it
+            Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
+            viewModel.getCurrentTemperatureFromApi()
         }
         Glide.with(requireContext())
             .load(requireContext().resources.getString(R.string.app_bar_image_url))
@@ -62,16 +64,16 @@ class StartFragment : Fragment() {
             showEditTextDialog()
         }
 
-//        viewModel.startData.observe(viewLifecycleOwner) {
-//            if (it != null) {
-//                if (binding.recyclerView.adapter == null) {
-//                    binding.recyclerView.adapter = StartAdapter(ArrayList(it), onClick)
-//                } else {
-//                    (binding.recyclerView.adapter as StartAdapter).updateList(it)
-//                }
-//                if (!binding.recyclerView.hasFixedSize()) binding.recyclerView.setHasFixedSize(true)
-//            }
-//        }
+        viewModel.startData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (binding.recyclerView.adapter == null) {
+                    binding.recyclerView.adapter = StartAdapter(ArrayList(it), onClick)
+                } else {
+                    (binding.recyclerView.adapter as StartAdapter).updateList(it)
+                }
+                if (!binding.recyclerView.hasFixedSize()) binding.recyclerView.setHasFixedSize(true)
+            }
+        }
     }
 
     private fun showEditTextDialog() {
