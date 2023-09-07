@@ -6,18 +6,11 @@ import com.example.umo.database.AppDao
 import kotlinx.coroutines.flow.Flow
 
 class AppRepository(private val appDao: AppDao) {
-    fun getAll(): Flow<List<CapitalData>> = appDao.getAll()
-
-    fun getById(id: String): Flow<CapitalData> = appDao.getById(id)
+    fun getAll(): Flow<List<String>> = appDao.getAll()
 
     @WorkerThread
-    suspend fun insert(item: CapitalData) {
+    suspend fun insert(item: String) {
         appDao.insert(item)
-    }
-
-    @WorkerThread
-    suspend fun addAll(list: List<CapitalData>) {
-        appDao.addAll(list)
     }
 
     fun deleteAll() {

@@ -11,16 +11,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AppDao {
     @Query("SELECT * FROM capital_data ORDER BY state ASC")
-    fun getAll(): Flow<List<CapitalData>>
-
-    @Query("SELECT * FROM capital_data WHERE uid IN (:id)")
-    fun getById(id: String): Flow<CapitalData>
+    fun getAll(): Flow<List<String>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(capitalData: CapitalData)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAll(list: List<CapitalData>)
+    suspend fun insert(postalCode: String)
 
     @Query("DELETE FROM capital_data")
     fun deleteAll()

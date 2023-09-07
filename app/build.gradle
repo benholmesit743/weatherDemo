@@ -54,6 +54,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
+    //Fused Location Provider
+    implementation "com.google.android.gms:play-services-location:21.0.1"
 
     def http_version = "4.8.1"
     implementation "com.squareup.okhttp3:okhttp:$http_version"

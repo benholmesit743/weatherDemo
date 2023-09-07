@@ -8,6 +8,7 @@
     <string name="precipitation_format">Precipitation: %1$s per inch</string>
     <string name="timestamp_format">Timestamp: %1$s</string>
     <string name="app_bar">App Bar</string>
+    <string name="submit">Submit</string>
     <string name="app_bar_image_url">"https://clipartix.com/wp-content/uploads/2016/05/Weather-clip-art-for-teachers-free-clipart-images-2.jpg"</string>
     <string name="_5_day_forecast">5 Day Forecast</string>
 </resources>
