@@ -16,8 +16,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.milwaukeetool"
-        minSdk 23
-        targetSdk 29
+        minSdk 21
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

@@ -8,11 +8,11 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".MainApplication"
+        android:name="com.example.milwaukeetool.MainApplication"
         android:theme="@style/Theme.MilwaukeeTool"
         tools:targetApi="29">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.milwaukeetool.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
