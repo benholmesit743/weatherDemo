@@ -31,40 +31,4 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="ForecastTitleItemStyle">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/colorPrimaryVariant</item>
-    </style>
-
-    <style name="SubtitleItemStyle">
-        <item name="android:textSize">16sp</item>
-    </style>
-
-    <style name="CurrentTempStyle">
-        <item name="android:textSize">40sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="CurrentTempSmallStyle">
-        <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="HiLowTempStyle">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="PrecipitationTextStyle">
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="PrecipitationSmallTextStyle">
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="TimestampTextStyle">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">italic</item>
-    </style>
 </resources>
