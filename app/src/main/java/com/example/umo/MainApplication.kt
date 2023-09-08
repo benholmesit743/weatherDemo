@@ -2,7 +2,6 @@ package com.example.umo
 
 import android.app.Application
 import androidx.room.Room
-import androidx.work.*
 import com.example.umo.database.AppDatabase
 import com.example.umo.repository.AppRepository
 import com.example.umo.retrofit.ApiService
@@ -15,7 +14,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
-class MainApplication: Application(), Configuration.Provider {
+class MainApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
@@ -23,12 +22,6 @@ class MainApplication: Application(), Configuration.Provider {
             androidContext(this@MainApplication)
             modules(appModule)
         }
-    }
-
-    override fun getWorkManagerConfiguration(): Configuration {
-        return Configuration.Builder()
-            .setMinimumLoggingLevel(android.util.Log.INFO)
-            .build()
     }
 
     private val appModule = module {
