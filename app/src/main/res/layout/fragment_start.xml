@@ -25,6 +25,8 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimaryVariant"
+            app:collapsedTitleTextColor="@color/white"
+            app:expandedTitleTextColor="@color/black"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed">
 
             <ImageView

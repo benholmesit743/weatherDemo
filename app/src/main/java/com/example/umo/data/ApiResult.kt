@@ -19,10 +19,6 @@ data class LocationData(
 
 data class DataValues(
     val temperature: Double?,
-    val temperatureApparent: Int,
-    val uvIndex: Int,
-    val visibility: Double,
-    val weatherCode: Int
 )
 
 fun ApiResult.toZipCode (currentZipCode: String, currentUnit: Int) : ZipCode{

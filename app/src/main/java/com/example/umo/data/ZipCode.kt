@@ -10,7 +10,7 @@ data class ZipCode(
     @ColumnInfo(name = "temperature") val temperature: Double?,
     @ColumnInfo(name = "timeStamp") val timeStamp: String?,
     //0 = Imperial, 1 = Metric
-    @ColumnInfo(name = "unit") val unit: Int
+    @ColumnInfo(name = "unit") var unit: Int
     )
 
 sealed class ForecastAdapterData{

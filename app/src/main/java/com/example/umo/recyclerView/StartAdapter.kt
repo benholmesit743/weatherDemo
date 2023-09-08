@@ -9,7 +9,8 @@ import com.example.umo.databinding.StartFragmentItemBinding
 
 
 class StartAdapter(private val items: ArrayList<ZipCode>,
-                   private val onClick: (data: ZipCode) -> Unit): RecyclerView.Adapter<StartAdapter.ViewHolder>() {
+                   private val onClick: (data: ZipCode) -> Unit,
+                   private val onCheck: (data: ZipCode, isChecked: Boolean) -> Unit): RecyclerView.Adapter<StartAdapter.ViewHolder>() {
 
     fun updateList(list: List<ZipCode>) {
         val diffCallback = GenericDiffCallback(items, list)
@@ -25,7 +26,7 @@ class StartAdapter(private val items: ArrayList<ZipCode>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position], onClick)
+        holder.bind(items[position], onClick, onCheck)
     }
 
     override fun getItemCount(): Int {
@@ -33,10 +34,16 @@ class StartAdapter(private val items: ArrayList<ZipCode>,
     }
 
     class ViewHolder(private val binding: StartFragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ZipCode, onClick: (data: ZipCode) -> Unit) {
+        fun bind(item: ZipCode, onClick: (data: ZipCode) -> Unit, onChecked: (data: ZipCode, isChecked: Boolean) -> Unit) {
             binding.title.text = item.zipCode
             binding.parent.setOnClickListener {
                 onClick(item)
+            }
+            binding.metricSwitch.isChecked = item.unit != 0
+            binding.metricSwitch.setOnCheckedChangeListener { _, isChecked ->
+                if ((item.unit == 0 && isChecked) || item.unit == 1 && !isChecked) {
+                    onChecked(item, isChecked)
+                }
             }
         }
     }

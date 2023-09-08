@@ -20,14 +20,18 @@ class MainViewModel(private val apiService: ApiService, private val repository: 
     lateinit var forecastData: LiveData<ZipCode>
     val startData: LiveData<List<ZipCode>> = repository.getAll().asLiveData()
 
-    fun getCurrentTemperatureFromApi() {
+    fun getCurrentTemperatureFromApi(apiKey: String) {
         currentItem?.let { zip ->
             disposable.add(
-                apiService.getWeather(location = zip.zipCode, units = zip.unit.toUnits())
+                apiService.getWeather(
+                    location = "${zip.zipCode} US",
+                    units = zip.unit.toUnits(),
+                    apikey = apiKey
+                )
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        addToRepo(
+                        addToRepoOrUpdate(
                             it.toZipCode(zip.zipCode, zip.unit)
                         )
                     }, {
@@ -42,9 +46,21 @@ class MainViewModel(private val apiService: ApiService, private val repository: 
         }
     }
 
+    fun addToRepoOrUpdate(zipCode: ZipCode) {
+        viewModelScope.launch {
+            if (!repository.zipExists(zipCode.zipCode)) {
+                repository.insert(zipCode)
+            } else {
+                repository.update(zipCode)
+            }
+        }
+    }
+
     fun addToRepo(zipCode: ZipCode) {
         viewModelScope.launch {
-            repository.insert(zipCode)
+            if (!repository.zipExists(zipCode.zipCode)) {
+                repository.insert(zipCode)
+            }
         }
     }
 

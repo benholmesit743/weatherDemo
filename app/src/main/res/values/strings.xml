@@ -9,6 +9,8 @@
     <string name="precipitation_format">Precipitation: %1$s per inch</string>
     <string name="timestamp_format">Timestamp: %1$s</string>
     <string name="app_bar">App Bar</string>
+    <string name="metric">Metric</string>
+    <string name="api_key">fFl8sB0s0HxsI35RbIky6J8G1laFSyqH</string>
     <string name="image_content_description">Image describes weather condition</string>
     <string name="submit">Submit</string>
     <string name="zip_dialog_title">Input Zip Code</string>

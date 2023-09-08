@@ -34,7 +34,7 @@ class ForecastFragment : Fragment() {
             NavHostFragment.findNavController(this).navigateUp()
         }
         binding.refresh.setOnRefreshListener {
-            viewModel.getCurrentTemperatureFromApi()
+            viewModel.getCurrentTemperatureFromApi(getString(R.string.api_key))
             binding.refresh.isRefreshing = false
         }
         viewModel.forecastData.observe(viewLifecycleOwner) { zipCode ->
@@ -43,7 +43,12 @@ class ForecastFragment : Fragment() {
                 val degreeFormat: Int = if (it.unit == 1) R.string.temp_format_celsius else R.string.temp_format_fahrenheit
                 binding.temperature.text = getString(degreeFormat, it.temperature)
                 binding.timeStamp.text = it.timeStamp
-                binding.image.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.good_weather))
+                if ((it.unit == 0 && (it.temperature ?: 0.0) >= 60) ||
+                    (it.unit == 1 && (it.temperature ?: 0.0) >= 15  )) {
+                    binding.image.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.good_weather))
+                } else {
+                    binding.image.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.bad_weather))
+                }
             }
         }
     }

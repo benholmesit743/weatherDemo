@@ -10,9 +10,16 @@ class AppRepository(private val appDao: AppDao) {
 
     fun getById(id: String): Flow<ZipCode> = appDao.getById(id)
 
+    suspend fun zipExists(zip: String): Boolean = appDao.zipExists(zip)
+
     @WorkerThread
     suspend fun insert(item: ZipCode) {
         appDao.insert(item)
+    }
+
+    @WorkerThread
+    suspend fun update(item: ZipCode) {
+        appDao.update(item)
     }
 
     fun deleteAll() {

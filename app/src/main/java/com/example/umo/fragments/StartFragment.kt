@@ -3,6 +3,7 @@ package com.example.umo.fragments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
@@ -21,6 +22,10 @@ import com.example.umo.recyclerView.StartAdapter
 import com.example.umo.viewModels.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.OnTokenCanceledListener
 import kotlinx.android.synthetic.main.fragment_start.*
 import kotlinx.android.synthetic.main.zip_dialog.*
 import kotlinx.android.synthetic.main.zip_dialog.view.*
@@ -50,11 +55,14 @@ class StartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requestLocationPermission()
         val onClick: (data: ZipCode) -> Unit = {
             viewModel.currentItem = it
             Navigation.findNavController(binding.root).navigate(R.id.action_start_to_forecast)
-            viewModel.getCurrentTemperatureFromApi()
+            viewModel.getCurrentTemperatureFromApi(getString(R.string.api_key))
+        }
+        val onCheck: (data: ZipCode, isChecked: Boolean) -> Unit = { data, checked ->
+            data.unit = if (checked) 1 else 0
+            viewModel.addToRepoOrUpdate(data)
         }
         Glide.with(requireContext())
             .load(requireContext().resources.getString(R.string.app_bar_image_url))
@@ -67,13 +75,18 @@ class StartFragment : Fragment() {
         viewModel.startData.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (binding.recyclerView.adapter == null) {
-                    binding.recyclerView.adapter = StartAdapter(ArrayList(it), onClick)
+                    binding.recyclerView.adapter = StartAdapter(ArrayList(it), onClick, onCheck)
                 } else {
                     (binding.recyclerView.adapter as StartAdapter).updateList(it)
                 }
                 if (!binding.recyclerView.hasFixedSize()) binding.recyclerView.setHasFixedSize(true)
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requestLocationPermission()
     }
 
     private fun showEditTextDialog() {
@@ -108,25 +121,26 @@ class StartFragment : Fragment() {
             when {
                 permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true -> {
                     // Precise location access granted.
-                    fusedLocationClient.lastLocation
-                        .addOnSuccessListener { location : Location? ->
-                            // Got last known location. In some rare situations this can be null.
-                            location?.let {
-                                val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                                val postalCode = geocoder.getFromLocation(it.latitude, it.longitude, 1)
-                                    ?.first()?.postalCode
-                                postalCode?.let { code ->
-                                    viewModel.addToRepo(
-                                        ZipCode(
-                                            zipCode = code,
-                                            temperature = null,
-                                            timeStamp = null,
-                                            unit = 0
-                                        )
+                    fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
+                        override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
+                        override fun isCancellationRequested() = false
+                    }).addOnSuccessListener { location: Location? ->
+                        location?.let {
+                            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                            val postalCode = geocoder.getFromLocation(it.latitude, it.longitude, 1)
+                                ?.first()?.postalCode
+                            postalCode?.let { code ->
+                                viewModel.addToRepo(
+                                    ZipCode(
+                                        zipCode = code,
+                                        temperature = null,
+                                        timeStamp = null,
+                                        unit = 0
                                     )
-                                }
+                                )
                             }
                         }
+                    }
                 }
             }
         }
